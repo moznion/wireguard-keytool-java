@@ -41,6 +41,9 @@ tasks.test {
 
 tasks.jacocoTestReport {
     dependsOn(tasks.test)
+    reports {
+        xml.isEnabled = true
+    }
 }
 
 spotless {
@@ -88,8 +91,14 @@ publishing {
             val snapshotsRepoUrl: String = "https://oss.sonatype.org/content/repositories/snapshots"
             setUrl(uri(if ((version as String).endsWith("SNAPSHOT")) snapshotsRepoUrl else releasesRepoUrl))
             credentials {
-                username = findProperty("sonatypeUsername") as String
-                password = findProperty("sonatypePassword") as String
+                username = fun (): String {
+                    val sonatypeUsername = findProperty("sonatypeUsername") ?: return ""
+                    return sonatypeUsername as String
+                }()
+                password = fun (): String {
+                    val sonatypePassword = findProperty("sonatypePassword") ?: return ""
+                    return sonatypePassword as String
+                }()
             }
         }
     }
