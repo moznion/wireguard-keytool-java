@@ -74,4 +74,14 @@ public class WireGuardKey {
 	public String getBase64PublicKey() throws InvalidPrivateKeyException {
 		return Base64.getEncoder().encodeToString(keyStrategy.publicFromPrivate(getPrivateKey()));
 	}
+
+	/**
+	 * isValidKey checks the validity of the given key.
+	 *
+	 * @param key a key to check the validity.
+	 * @return a validity of the key.
+	 */
+	public static boolean isValidKey(final byte[] key) {
+		return keyStrategy.isValidKey(key);
+	}
 }

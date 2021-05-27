@@ -15,6 +15,14 @@ class WireGuardKeyTest {
 		assertThat(generatedKey.getPublicKey()).isNotEmpty();
 		assertThat(generatedKey.getBase64PrivateKey()).isNotEmpty();
 		assertThat(generatedKey.getBase64PublicKey()).isNotEmpty();
+
+		assertThat(WireGuardKey.isValidKey(generatedKey.getPrivateKey())).isTrue();
+		assertThat(WireGuardKey.isValidKey(generatedKey.getPublicKey())).isTrue();
+	}
+
+	@Test
+	void shouldBeInvalidKey() throws Exception {
+		assertThat(WireGuardKey.isValidKey(new byte[]{})).isFalse();
 	}
 
 	@Test
