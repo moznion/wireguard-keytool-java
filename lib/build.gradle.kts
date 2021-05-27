@@ -58,7 +58,7 @@ publishing {
         create<MavenPublication>("maven") {
             group = "net.moznion"
             artifactId = "wireguard-keytool"
-            version = "0.1.0"
+            version = "0.1.1-SNAPSHOT"
             from(components["java"])
             pom {
                 name.set("wireguard-keytool")
